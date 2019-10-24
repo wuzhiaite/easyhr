@@ -1,0 +1,40 @@
+
+spring:
+   application:
+    name: microservicecloud-dept
+   datasource:
+     master:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/master?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      username: root
+      password: root
+      dbcp2:
+        min-idle: 5                                           # 数据库连接池的最小维持连接数
+        initial-size: 5                                       # 初始化连接数
+        max-total: 5                                          # 最大连接数
+        max-wait-millis: 200                                  # 等待连接获取的最大超时时间
+    cluster:
+      - key: slave1
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/slave1?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        type: com.zaxxer.hikari.HikariDataSource
+      - key: slave2
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/slave2?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        type: com.zaxxer.hikari.HikariDataSource
+
+   rabbitmq:
+     host: localhost
+     port: 5672
+     ssl:
+       verify-hostname: true
+     password: guest
+     username: guest
+#mybatis的配置文件
+mybatis:
+  config-location: classpath:/mybatis/config/mybatis-config.xml
+  mapper-locations:
